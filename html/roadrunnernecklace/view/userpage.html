@@ -1,22 +1,71 @@
 <!DOCTYPE html>
 <html>
-<head>
-<title>Page Title</title>
-</head>
-<body>
+    <head>
+        <title>Page Title</title>
+        <meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+    </head>
 
-<h1>Create Account</h1>
-<form action="v1/createUser.php" method="post" id="create_user_form">
-    <label for="fname">First Name:</label><br>
-    <input type="text" id="fname" name="fname" required><br>
-    <label for="lname">Last Name:</label><br>
-    <input type="text" id="lname" name="lname" required><br>
-    <label for="email">Email:</label><br>
-    <input type="text" id="email" name="email" required><br>
-    <label for="password">Password:</label><br>
-    <input type="text" id="password" name="password" required>
-    <button type="submit" id="btnsubmit">Create!</button>
-</form>
+    <body class="is-preload">
+        <!-- Wrapper -->
+            <div id="wrapper">
 
-</body>
+                <!-- Header -->
+                    <header id="header">
+                        <div class="inner">
+
+                            <!-- Logo -->
+                                <a href="index.html" class="logo">
+                                    <span class="symbol"><img src="images/logo.svg" alt="" /></span><span class="title">Phantom</span>
+                                </a>
+
+                            <!-- Nav -->
+                                <nav>
+                                    <ul>
+                                        <li><a href="#menu">Menu</a></li>
+                                    </ul>
+                                </nav>
+
+                        </div>
+                    </header>
+
+                <!-- Menu -->
+                    <nav id="menu">
+                        <h2>Menu</h2>
+                        <ul>
+                            <li><a href="index.html">Home</a></li>
+                            <li><a href="userpage.html">Create Account</a></li>
+                            <li><a href="generic.html">Tempus etiam</a></li>
+                            <li><a href="generic.html">Consequat dolor</a></li>
+                            <li><a href="elements.html">Elements</a></li>
+                        </ul>
+                    </nav>
+                    <div id="main">
+                        <div class="inner">
+                            <h1>Create Account</h1>
+                            <form action="v1/createUser.php" method="post" id="create_user_form">
+                                <label for="fname">First Name:</label><br>
+                                <input type="text" id="fname" name="fname" required><br>
+                                <label for="lname">Last Name:</label><br>
+                                <input type="text" id="lname" name="lname" required><br>
+                                <label for="email">Email:</label><br>
+                                <input type="text" id="email" name="email" required><br>
+                                <label for="password">Password:</label><br>
+                                <input type="text" id="password" name="password" required>
+                                <button type="submit" id="btnsubmit">Create!</button>
+                            </form>
+                        </div>
+                    </div>
+            </div>
+
+        <!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+    </body>
 </html>
