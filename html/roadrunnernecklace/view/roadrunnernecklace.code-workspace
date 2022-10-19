@@ -1,0 +1,14 @@
+{
+	"folders": [
+		{
+			"path": ".."
+		},
+		{
+			"name": "SSH FS - roadrunnernecklace",
+			"uri": "ssh://roadrunnernecklace/"
+		}
+	],
+	"settings": {
+		"liveServer.settings.multiRootWorkspaceName": "roadrunnernecklace"
+	}
+}
