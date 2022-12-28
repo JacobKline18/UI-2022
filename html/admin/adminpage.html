@@ -1,0 +1,1054 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Roadrunner Necklaces</title>
+        <meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="css/adminpage.css" />
+		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+    </head>
+
+    <body class="is-preload">
+        <!-- Wrapper -->
+            <div id="wrapper">
+
+                <!-- Header -->
+                    <header id="header">
+                        <div class="inner">
+
+                        </div>
+                    </header>
+                    <div id="main">
+                        <div class="inner">
+                            <h1>Admin Page</h1>
+                            <div class="tab">
+                                <button class="tablinks" onclick="openNecklaces(event, 'Necklaces', 'necklaceTable')">Necklaces</button>
+                                <button class="tablinks" onclick="openUsers(event, 'Users', 'userTable')" id="userTab">Users</button>
+                                <button class="tablinks" onclick="openOrders(event, 'Orders', 'orderTable')">Orders</button>
+                            </div>
+
+                            <div id="Orders" class="tabcontent">
+                                <form action="/v1/orders.php" method="GET" id="getOrders">
+                                    <button type="submit" id="btn_order_search">Search</button>
+                                    <input type="text" id="orderSearch" style="width:375px" name="searchOrder" placeholder="Enter first name, last name, billing address, or total cost here"><br>
+                                </form>
+                                <table id="orderTable">
+                                    <thead>
+                                        <tr>
+                                            <th>Order Date</th>
+                                            <th>Item(s)</th>
+                                            <th>Recipient's First Name</th>
+                                            <th>Recipient's Last Name</th>
+                                            <th>Street</th>
+                                            <th>City</th>
+                                            <th>State</th>
+                                            <th>Total Cost</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                            </div>
+                              
+                            <div id="Necklaces" class="tabcontent">
+
+                                <div class="form-popup" id="necklacePopupForm">
+                                    <form class="form-container" id="updateNecklaceForm">
+                                      <h1>Update Necklace</h1>
+                                  
+                                      <label for="Brand"><b>Brand</b></label>
+                                      <input type="text" id="update-brand" placeholder="brand">
+                                  
+                                      <label for="Type"><b>Type</b></label>
+                                      <input type="text" id="update-type" placeholder="type">
+                                  
+                                      <label for="Material"><b>Material</b></label>
+                                      <input type="text" id="update-material" placeholder="Email">
+
+                                      <label for="Gem"><b>Gem</b></label>
+                                      <input type="text" id="update-gem" placeholder="gem">
+
+                                      <label for="imgPath"><b>imgPath</b></label>
+                                      <input type="file" id="update-imgPath" placeholder="imgPath">
+
+                                      <label for="Description"><b>Description</b></label>
+                                      <input type="text" id="update-description" placeholder="description">
+
+                                      <label for="Price"><b>Price</b></label>
+                                      <input type="text" id="update-price" placeholder="price">
+
+                                      <label for="Quantity"><b>Quantity</b></label>
+                                      <input type="text" id="update-quantity" placeholder="quantity">
+                                    </form>
+                                </div>
+
+                                <div class="form-popup" id="createNecklacePopupForm">
+                                    <form class="form-container" id="createNecklaceForm">
+                                      <h1>Create Necklace</h1>
+                                      <label for="Brand"><b>Brand</b></label>
+                                      <input type="text" id="create-brand" placeholder="brand">
+                                  
+                                      <label for="Type"><b>Type</b></label>
+                                      <input type="text" id="create-type" placeholder="type">
+                                  
+                                      <label for="Material"><b>Material</b></label>
+                                      <input type="text" id="create-material" placeholder="Email">
+
+                                      <label for="Gem"><b>Gem</b></label>
+                                      <input type="text" id="create-gem" placeholder="gem">
+
+                                      <label for="imgPath"><b>imgPath</b></label>
+                                      <input type="file" id="create-imgPath" placeholder="imgPath">
+
+                                      <label for="Description"><b>Description</b></label>
+                                      <input type="text" id="create-description" placeholder="description">
+
+                                      <label for="Price"><b>Price</b></label>
+                                      <input type="text" id="create-price" placeholder="price">
+
+                                      <label for="Quantity"><b>Quantity</b></label>
+                                      <input type="text" id="create-quantity" placeholder="quantity">
+                                      
+                                      <button type="button" class="btn" id="createNecklaceButton"> Create Necklace </button>
+                                      <button type="button" class="btn cancel" onclick="closeNecklaceForms()"> Close </button>
+                                    </form>
+                                </div>
+                                <form action="/v1/necklaces.php" method="POST" id="createNecklace">
+                                    <button type="button" id="createNecklaceFormButton"> + Create </button>
+                                </form>
+                                <form action="/v1/necklaces.php" method="GET" id="getNecklaces">
+                                    <button type="submit" id="btn_necklace_search">Search</button>
+                                    <input type="text" id="necklaceSearch" name="searchNecklace" placeholder="Enter type, material, or gem"><br>
+                                </form>
+                                <table id="necklaceTable">
+                                    <thead>
+                                        <tr>
+                                            <th>Action</th>
+                                            <th>Brand</th>
+                                            <th>Type</th>
+                                            <th>Material</th>
+                                            <th>Gem</th>
+                                            <th>imgPath</th>
+                                            <th>Description</th>
+                                            <th>Price</th>
+                                            <th>Quantity</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                            </div>
+                              
+                            <div id="Users" class="tabcontent">
+                                <div class="form-popup" id="userPopupForm">
+                                    <form class="form-container" id="updateUserForm">
+                                      <h1>Update User</h1>
+                                  
+                                      <label for="First Name"><b>First Name</b></label>
+                                      <input type="text" id="update-fname" placeholder="Edit first name" name="first name">
+                                  
+                                      <label for="Last Name"><b>Last Name</b></label>
+                                      <input type="text" id="update-lname" placeholder="Edit last name" name="last name">
+                                  
+                                      <label for="Email"><b>Email</b></label>
+                                      <input type="text" id="update-email" placeholder="Edit email" name="email">
+
+                                      <label for="Is Admin"><b>Is Admin</b></label>
+                                      <input type="checkbox" id="updateAdminCheckbox">
+                                    </form>
+                                </div>
+
+                                <div class="form-popup" id="createPopupForm">
+                                    <form class="form-container" id="createUserForm">
+                                      <h1>Create User</h1>
+                                      <label for="First Name"><b>First Name</b></label>
+                                      <input type="text" id="create-fname" placeholder="First Name" name="first name">
+                                  
+                                      <label for="Last Name"><b>Last Name</b></label>
+                                      <input type="text" id="create-lname" placeholder="Last Name" name="last name">
+                                  
+                                      <label for="Email"><b>Email</b></label>
+                                      <input type="text" id="create-email" placeholder="Email" name="email">
+
+                                      <label for="Email"><b>Password</b></label>
+                                      <input type="password" id="create-password" placeholder="Password" name="email">
+
+                                      <label for="Is Admin"><b>Is Admin</b></label>
+                                      <input type="checkbox" id="createAdminCheckbox" value="no">
+                                      <button type="button" class="btn" id="createUserButton"> Create User </button>
+                                      <button type="button" class="btn cancel" onclick="closeUserForms()"> Close </button>
+                                    </form>
+                                </div>
+
+                                <form action="/v1/users.php" method="POST" id="createUser">
+                                    <button type="button" id="createFormButton"> + Create </button>
+                                </form>
+                                <form action="/v1/users.php" method="GET" id="getUsers">
+                                    <button type="submit" id="btn_user_search">Search</button>
+                                    <input type="text" id="userSearch" name="searchUser" style="width:250px" placeholder="Enter first name, last name, or email here"><br>
+                                </form>
+                                <table id="userTable">
+                                    <thead>
+                                        <tr>
+                                            <th>Action</th>
+                                            <th>First Name</th>
+                                            <th>Last Name</th>
+                                            <th>Email</th>
+                                            <th>Admin Rights?</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                            </div>
+                              
+                            <div id="Orders" class="tabcontent">
+                                <h3>Orders</h3>
+                                <p>Tokyo is the capital of Japan.</p>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+
+            <script>
+                            function packageFormData(data) {
+                return new Promise((resolve, reject) => {
+                    formData = new FormData();
+                    // Push our data into our FormData object
+                    for (const [name, value] of Object.entries(data)) {
+                        formData.append(name, value);
+                        console.log(name + " " + value);
+                    }
+
+                    if (formData) {
+                        resolve(formData);
+                    }
+                    else {
+                        reject("Something went wrong converting data into FormData object");
+                    }
+                })
+            };
+
+            function packageRawData(data, array) {
+                return new Promise((resolve, reject) => {
+                    
+                    var rawData = "{";
+                    var i = 0;
+
+                    // Push our data into our FormData object
+                    if (array) {
+                        for (const [name, value] of Object.entries(data)) {
+                            if (name != "password")
+                                if (name == "user_id" || name == "necklace_id")
+                                    rawData += ("\"" + name + "\" : \"" + value + "\",");
+                                else {
+                                    rawData += ("\"" + name + "\" : \"" + array[i] + "\",");
+                                    i++;
+                                }
+                            //rawData += ("\"" + name + "\" : \"" + value + "\",");
+                            console.log(name + " " + array[i]);
+                        }
+                    }
+                    rawData = rawData.slice(0, -1);
+                    rawData += "}";
+                    rawData = rawData.replace("user_id", "userId");
+                    rawData = rawData.replace("necklace_id", "necklaceId");
+
+                    if (rawData) {
+                        resolve(rawData);
+                    }
+                    else {
+                        reject("Something went wrong converting data into FormData object");
+                    }
+                })
+            }
+
+            function sendData(data, url, httpMethod) {
+                return new Promise((resolve, reject) => {
+                    const XHR = new XMLHttpRequest();
+                    var returnData;
+
+                    // set the proper 'GET' HTTP URL
+                    XHR.open(httpMethod, url, true);
+                    console.log("inside sendData function");
+                    console.log("url inside sendData() is " + url);
+
+                    // Define what happens on successful data submission
+                    XHR.addEventListener('load', (event) => {
+                        console.log('Yeah! Data sent and response loaded.');
+                    });
+
+                    // Define what happens in case of error
+                    XHR.addEventListener('error', (event) => {
+                        alert('Oops! Something went wrong.');
+                    });
+
+                    XHR.onreadystatechange = function () {
+                        if (XHR.readyState === 4) {
+                            if (XHR.status == 400) {
+                                alert("Invalid input!");
+                            }
+                            if (XHR.status == 200 || XHR.status == 201) {
+                                returnData = XHR.responseText;
+                                try {returnData = (JSON.parse(XHR.responseText))}
+                                catch {
+                                    console.log("raw Data cannot undergo \"JSON.parse\"")
+                                }
+                                console.log(XHR.status);
+                                console.log(XHR.responseText);
+                                console.log("RETURN DATA IS " + returnData);
+                                resolve(returnData);
+                            }
+                            if (XHR.status == 202) {
+                                alert("Nothing was found with that search parameter");
+                            }
+                        }
+                    };
+
+                    XHR.send(data);
+            })};
+
+
+            </script>
+            <!-- Verify Session ID -->
+            <script>
+
+                function getCookie(cname) {
+                    return new Promise((resolve, reject) => {
+                        console.log("hi");
+                        let name = cname + "=";
+                        let decodedCookie = decodeURIComponent(document.cookie);
+                        let ca = decodedCookie.split(';');
+                        for(let i = 0; i <ca.length; i++) {
+                            let c = ca[i];
+                            while (c.charAt(0) == ' ') {
+                                c = c.substring(1);
+                            }
+                            if (c.indexOf(name) == 0) {
+                                resolve(c.substring(name.length, c.length));
+                            }
+                        }
+                        resolve("");
+                    });
+                }
+                
+                function validateSessionId(sid) {
+                        const XHR = new XMLHttpRequest();
+                        XHR.open('GET', '/v1/users.php?sid='+sid, true);
+
+                        XHR.addEventListener('error', (event) => {
+                            alert('Something went wrong sending!');
+                            alert(XHR.response);
+                            location.assign("http://admin.roadrunnernecklaces.com/");
+                        });
+
+                        XHR.send(null);
+                }
+
+                async function startValidation() {
+                    console.log("hi");
+                    let sid = await getCookie("sessionName");
+
+                    if (sid == "")
+                        location.assign("http://admin.roadrunnernecklaces.com/");
+
+                    validateSessionId(sid);
+                };
+
+                startValidation();
+
+            </script>
+
+        <!-- Scripts -->
+            <script>
+
+                function openCity(evt, tabName, tableName) {
+                    // Declare all variables
+                    var i, tabcontent, tablinks;
+
+                    // Get all elements with class="tabcontent" and hide them
+                    tabcontent = document.getElementsByClassName("tabcontent");
+                    for (i = 0; i < tabcontent.length; i++) {
+                        tabcontent[i].style.display = "none";
+                    }
+
+                    // Get all elements with class="tablinks" and remove the class "active"
+                    tablinks = document.getElementsByClassName("tablinks");
+                    for (i = 0; i < tablinks.length; i++) {
+                        tablinks[i].className = tablinks[i].className.replace("active", "");
+                    }
+
+                    // Show the current tab, and add an "active" class to the button that opened the tab
+                    document.getElementById(tabName).style.display = "block";
+                    evt.currentTarget.className += "active";
+                }
+            </script>
+
+            <script>
+                async function openUsers(evt, tabName, tableName) {
+                    // Declare all variables
+                    var i, tabcontent, tablinks, url, userGetResult;
+                    var userData = new FormData();
+
+                    //url = "http://roadrunnernecklaces.com/v1/users.php";
+                    url = "/v1/users.php";
+                    // Get all elements with class="tabcontent" and hide them
+                    tabcontent = document.getElementsByClassName("tabcontent");
+                    for (i = 0; i < tabcontent.length; i++) {
+                        tabcontent[i].style.display = "none";
+                    }
+
+                    // Get all elements with class="tablinks" and remove the class "active"
+                    tablinks = document.getElementsByClassName("tablinks");
+                    for (i = 0; i < tablinks.length; i++) {
+                        tablinks[i].className = tablinks[i].className.replace("active", "");
+                    }
+
+                    // Show the current tab, and add an "active" class to the button that opened the tab
+                    document.getElementById(tabName).style.display = "block";
+                    evt.currentTarget.className += "active";
+                    
+                    userData = await packageFormData({"" : ""});
+                    console.log("userData is " + userData);
+                    console.log("url is " + url);
+
+                    userGetResult = await sendData(userData, url, "GET");
+                
+                    console.log("userGetResult is " + userGetResult);
+                    await createDynamicTable(userGetResult, 'userTable');
+    
+                }
+
+                async function openNecklaces(evt, tabName, tableName) {
+                    // Declare all variables
+                    var i, tabcontent, tablinks, url, necklaceGetResult;
+                    var necklaceData = new FormData();
+
+                    //url = "http://roadrunnernecklaces.com/v1/users.php";
+                    url = "/v1/necklaces.php";
+
+                    // Get all elements with class="tabcontent" and hide them
+                    tabcontent = document.getElementsByClassName("tabcontent");
+                    for (i = 0; i < tabcontent.length; i++) {
+                        tabcontent[i].style.display = "none";
+                    }
+
+                    // Get all elements with class="tablinks" and remove the class "active"
+                    tablinks = document.getElementsByClassName("tablinks");
+                    for (i = 0; i < tablinks.length; i++) {
+                        tablinks[i].className = tablinks[i].className.replace("active", "");
+                    }
+
+                    // Show the current tab, and add an "active" class to the button that opened the tab
+                    document.getElementById(tabName).style.display = "block";
+                    evt.currentTarget.className += "active";
+                    
+                    necklaceData = await packageFormData({"" : ""});
+                    console.log("necklaceData is " + necklaceData);
+                    console.log("url is " + url);
+
+                    necklaceGetResult = await sendData(necklaceData, url, "GET");
+                
+                    console.log("necklaceGetResult is " + necklaceGetResult);
+                    await createDynamicTable(necklaceGetResult, 'necklaceTable');
+    
+                }
+
+                async function openOrders(evt, tabName, tableName) {
+                    // Declare all variables
+                    var i, tabcontent, tablinks, url, orderGetResult;
+                    var orderData = new FormData();
+
+                    //url = "http://roadrunnernecklaces.com/v1/users.php";
+                    url = "/v1/orders.php";
+
+                    // Get all elements with class="tabcontent" and hide them
+                    tabcontent = document.getElementsByClassName("tabcontent");
+                    for (i = 0; i < tabcontent.length; i++) {
+                        tabcontent[i].style.display = "none";
+                    }
+
+                    // Get all elements with class="tablinks" and remove the class "active"
+                    tablinks = document.getElementsByClassName("tablinks");
+                    for (i = 0; i < tablinks.length; i++) {
+                        tablinks[i].className = tablinks[i].className.replace("active", "");
+                    }
+
+                    // Show the current tab, and add an "active" class to the button that opened the tab
+                    document.getElementById(tabName).style.display = "block";
+                    evt.currentTarget.className += "active";
+                    
+                    orderData = await packageFormData({"" : ""});
+                    console.log("orderData is " + orderData);
+                    console.log("url is " + url);
+
+                    orderGetResult = await sendData(orderData, url, "GET");
+                
+                    console.log("necklaceGetResult is " + orderGetResult);
+                    await createDynamicTable(orderGetResult, 'orderTable');
+    
+                }
+            </script>
+            
+            <script>
+                var updateUserCheckbox = document.getElementById("updateAdminCheckbox");
+                updateUserCheckbox.addEventListener("change",function(){
+                    this.value = this.checked ? "yes" : "no";
+                });
+
+                var createUserCheckbox = document.getElementById("createAdminCheckbox");
+                createUserCheckbox.addEventListener("change",function(){
+                    this.value = this.checked ? "yes" : "no";
+                });
+
+                document.getElementById("userTab").click();
+
+            </script>
+
+<!-- Script for searching a User-->
+        <script>
+            const userBtnSearch = document.getElementById('btn_user_search');
+            const userSearch = document.getElementById('userSearch');
+
+            const necklaceBtnSearch = document.getElementById('btn_necklace_search');
+            const necklaceSearch = document.getElementById('necklaceSearch');
+
+            const orderBtnSearch = document.getElementById('btn_order_search');
+            const orderSearch = document.getElementById('orderSearch');
+
+            orderBtnSearch.addEventListener('click', async function(event) {
+                var orderData = new FormData();
+                var url = document.getElementById('getOrders').action + "?";
+                var orderGetResult;
+
+                event.preventDefault();
+                console.log("CLICKED SEARCH BUTTON");
+
+                orderData = await packageFormData({ orders        : orderSearch.value,
+                                                    ccfirstname   : orderSearch.value,
+                                                    cclastname    : orderSearch.value,
+                                                    street        : orderSearch.value,
+                                                    city          : orderSearch.value,
+                                                    state         : orderSearch.value,
+                                                    total         : orderSearch.value}); 
+
+                url = await attachUrlParameters(orderData, url);
+                console.log("orderData is " + orderData);
+                console.log("url is " + url);
+
+                orderGetResult = await sendData(orderData, url, "GET");
+            
+                console.log("orderGetResult is " + orderGetResult);
+                await createDynamicTable(orderGetResult, 'orderTable');
+            });
+
+            necklaceBtnSearch.addEventListener('click', async function(event) {
+                var necklaceData = new FormData();
+                var url = document.getElementById('getNecklaces').action + "?";
+                var necklaceGetResult;
+
+                event.preventDefault();
+                console.log("CLICKED SEARCH BUTTON");
+
+                necklaceData = await packageFormData({type      : necklaceSearch.value,
+                                                      material  : necklaceSearch.value,
+                                                      gem       : necklaceSearch.value}); 
+
+                url = await attachUrlParameters(necklaceData, url);
+                console.log("necklaceData is " + necklaceData);
+                console.log("url is " + url);
+
+                necklaceGetResult = await sendData(necklaceData, url, "GET");
+            
+                console.log("necklaceGetResult is " + necklaceGetResult);
+                await createDynamicTable(necklaceGetResult, 'necklaceTable');
+            });
+
+            userBtnSearch.addEventListener('click', async function(event) {
+
+                var userData = new FormData();
+                var url = document.getElementById('getUsers').action + "?";
+                var userGetResult;
+
+                event.preventDefault();
+                console.log("CLICKED SEARCH BUTTON");
+
+                userData = await packageFormData({firstName   : userSearch.value,
+                                                  lastName    : userSearch.value,
+                                                  email       : userSearch.value}); 
+
+                url = await attachUrlParameters(userData, url);
+                console.log("userData is " + userData);
+                console.log("url is " + url);
+
+                userGetResult = await sendData(userData, url, "GET");
+            
+                console.log("userGetResult is " + userGetResult);
+                await createDynamicTable(userGetResult, 'userTable');
+
+            });
+
+            function attachUrlParameters(userData, url) {
+                return new Promise((resolve, reject) => {
+                    console.log("HEY");
+                    for (const [key, value] of userData) {
+                        url += key + "=" + value + "&";
+                    }
+                    if (url) {
+                        resolve(url);
+                    }
+                    else {
+                        reject("something wrong occurred with the url");
+                    }
+                })
+            };
+        </script>
+
+        <!-- Script for creating a User -->
+        <script>
+            const userBtnCreate = document.getElementById("createUserButton");
+            const openCreateForm = document.getElementById("createFormButton");
+
+            const necklaceBtnCreate = document.getElementById("createNecklaceButton");
+            const openNecklaceCreateForm = document.getElementById("createNecklaceFormButton");
+
+            openNecklaceCreateForm.addEventListener('click', async function(event) {
+                document.getElementById("createNecklacePopupForm").style.display = "block";
+            });
+
+            openCreateForm.addEventListener('click', async function(event) {
+                document.getElementById("createPopupForm").style.display = "block";
+            });
+
+            necklaceBtnCreate.addEventListener('click', async function(event) {
+                var necklacePostResult;
+                var cBrand = document.getElementById("create-brand").value;
+                var cType = document.getElementById("create-type").value;
+                var cMaterial = document.getElementById("create-material").value;
+                var cGem = document.getElementById("create-gem").value;
+                var cImgPath = document.getElementById("create-imgPath").value;
+                var cDescription = document.getElementById("create-description").value;
+                var cPrice = document.getElementById("create-price").value;
+                var cQuantity = document.getElementById("create-quantity").value;
+
+                var necklaceData = new FormData();
+                var url = document.getElementById('createNecklace').action;
+
+                event.preventDefault();
+
+                necklaceData = await packageFormData({brand     : cBrand,
+                                                type        : cType,
+                                                material    : cMaterial,
+                                                gem         : cGem,
+                                                imgPath     : cImgPath,
+                                                description : cDescription,
+                                                price       : cPrice,
+                                                quantity    : cQuantity}); 
+
+                console.log("necklaceData is " + necklaceData);
+                console.log("url is " + url);
+
+                userPostResult = await sendData(necklaceData, url, "POST");
+            
+                console.log("necklacePostResult is " + necklacePostResult);
+
+                console.log("hello?");
+                necklaceBtnSearch.click();
+                console.log("did it work?");
+                closeNecklaceForms();
+                console.log("yes");
+            });
+
+            userBtnCreate.addEventListener('click', async function(event) {
+                var userPostResult;
+                var fname = document.getElementById("create-fname").value;
+                var lname = document.getElementById("create-lname").value;
+                var email = document.getElementById("create-email").value;
+                var password = document.getElementById("create-password").value;
+                var isAdmin = document.getElementById("createAdminCheckbox").value;
+                var userData = new FormData();
+                var url = document.getElementById('createUser').action;
+
+                event.preventDefault();
+
+                console.log("CLICKED SEARCH BUTTON");
+
+                userData = await packageFormData({firstName   : fname,
+                                                lastName    : lname,
+                                                email       : email,
+                                                password    : password,
+                                                isAdmin     : isAdmin}); 
+
+                console.log("userData is " + userData);
+                console.log("url is " + url);
+
+                userPostResult = await sendData(userData, url, "POST");
+            
+                console.log("userPostResult is " + userPostResult);
+
+                console.log("hello?");
+                userBtnSearch.click();
+                console.log("did it work?");
+                closeUserForms();
+                console.log("yes");
+                
+            });
+        </script>
+
+        <script>
+            async function createDynamicTable(sqlRows, tableName) {
+                var url;
+                if (tableName == "userTable")
+                    url = "/v1/users.php?";
+                if (tableName == "necklaceTable")
+                    url = "/v1/necklaces.php?";
+                if (tableName == "orderTable")
+                    url = "/v1/orders.php?"
+                // Find the correct table
+                var table = document.getElementById(tableName);
+                // target the tbody
+                var tbodyRef = table.getElementsByTagName('tbody')[0];
+                // clear the previous search results (if any)
+                tbodyRef.remove();
+                // create a new tbody
+                tbodyRef = document.getElementById(tableName).createTBody();
+
+
+                // promise to be returned from creating delete button
+                var deleteButtonResult;
+
+                console.log("inside createDynamicTable");
+                console.log("sqlRows type is " + typeof(sqlRows));
+                console.log(sqlRows["response"]);
+                for (const pair of Object.entries(sqlRows["response"])) {
+                    // transforming JSON into separable rows for each item, user, order, etc.
+                    const [key, rowData] = pair;
+                    // Insert a row at the end of the table
+                    var newRow = tbodyRef.insertRow();
+
+                    for (const pair of Object.entries(rowData)) {
+                        const [key,value] = pair;
+                        var rawId;
+                        //console.log("Iterating");
+                        //console.log("pair is " + pair + " and key is " + key + " and value is " + value);
+                        if (key == "user_id" || key == "necklace_id") {
+                            var newCell = newRow.insertCell();
+                            if (tableName == "userTable")
+                                rawId = "{ \"userId\" : \"" + value + "\" }";
+                            if (tableName == "necklaceTable")
+                                rawId = "{ \"necklaceId\" : \"" + value + "\" }";
+                            // insert a cell for a delete button
+                            updateButtonResult = await createUpdateButton(newCell, newRow, rowData, url);
+                            deleteButtonResult = await createDeleteButton(newCell, newRow, rawId, url);
+                        }
+
+                        if ((key != "password") && (key != "user_id") && (key != "necklace_id") && (key != "order_id")) {
+                            var newCell, newText;
+                            
+                            newCell = newRow.insertCell();
+                            // Append the corresponding user data to the end of each cell
+                            if (key == "total")
+                                newText = document.createTextNode("$" + value);
+                            else {
+                                newText = document.createTextNode(value);
+                            }
+                            newCell.appendChild(newText);
+                        }
+                        //console.log("This should happen at the very end of each row creation");
+                    }
+                };
+            }
+
+            
+            async function createDeleteButton(currentCell, currentRow, userData, url) {
+                return new Promise((resolve, reject) => {
+                    var createdBtn;
+
+                    var btn = document.createElement('input');
+                    setupPrivateUserData(btn);
+                    btn.setPrivate(userData);
+                    btn.setUrl(url);
+                    btn.type = "button";
+                    btn.className = "btn";
+                    btn.value = "Delete";
+                    console.log("btn.value is " + btn.value);
+                    console.log("rawData is " + btn.getPrivate());
+                    
+                    btn.onclick = (async function() {
+                        var userDeleteResult, userGetResult, rawData;
+                        console.log("rawData is " + btn.getPrivate());
+                        userDeleteResult = await sendData(btn.getPrivate(), btn.getUrl(), "DELETE");
+                        console.log("before refreshTable");
+                        refreshTable(btn.getUrl());
+                    });
+
+                    currentCell.appendChild(btn);
+                    createdBtn = true;
+                    resolve(createdBtn);
+                });
+            }
+
+            async function createUpdateButton(currentCell, currentRow, userData, url) {
+                return new Promise((resolve, reject) => {
+                    var createdBtn;
+                    var btn = document.createElement('input');
+                    setupPrivateUserData(btn);
+                    btn.setPrivate(userData);
+                    btn.setUrl(url);
+                    btn.type = "button";
+                    btn.value = "Update";
+                    console.log("btn.value is " + btn.value);
+
+                    for(var pair of  Object.entries(btn.getPrivate())){
+                        console.log(pair[0], pair[1]);
+                    }
+
+                    btn.onclick = (async function() {
+                        var userId, fname, lname, email, form;
+                        console.log(btn.getUrl());
+                        if (btn.getUrl() == "/v1/users.php?") {
+                            form = document.getElementById("updateUserForm");
+                            try {
+                                form.removeChild(document.getElementById("updateUserButtonId"));
+                                form.removeChild(document.getElementById("closeUserButtonId"));
+                            }
+                            catch {
+                            }
+                            await updateForm(btn.getPrivate());
+                            let updateButton = document.createElement("button");
+                            updateButton.innerHTML = "Update User";
+                            updateButton.className = "btn";
+                            updateButton.type = "button";
+                            updateButton.id = "updateUserButtonId";
+                            form.appendChild(updateButton);
+
+                            updateButton.addEventListener('click', function(event) {
+                                updateUser(btn.getPrivate(), btn.getUrl());
+                            });
+
+                            let closeButton = document.createElement("button");
+                            closeButton.innerHTML = "Close";
+                            closeButton.className = "btn cancel";
+                            closeButton.type = "button";
+                            closeButton.id = "closeUserButtonId";
+
+                            closeButton.addEventListener('click', function(event) {
+                                closeUserForms();
+                            });
+
+                            form.appendChild(updateButton);
+                            form.appendChild(closeButton);
+
+                            document.getElementById("userPopupForm").style.display = "block";
+                        }
+
+                        if (btn.getUrl() == "/v1/necklaces.php?") {
+                            form = document.getElementById("updateNecklaceForm");
+                            try {
+                                form.removeChild(document.getElementById("updateNecklaceButtonId"));
+                                form.removeChild(document.getElementById("closeNecklaceButtonId"));
+                            }
+                            catch {
+                            }
+                            await updateNecklaceForm(btn.getPrivate());
+                            let updateButton = document.createElement("button");
+                            updateButton.innerHTML = "Update Necklace";
+                            updateButton.className = "btn";
+                            updateButton.type = "button";
+                            updateButton.id = "updateNecklaceButtonId";
+                            form.appendChild(updateButton);
+
+                            updateButton.addEventListener('click', function(event) {
+                                updateNecklace(btn.getPrivate(), btn.getUrl());
+                            });
+
+                            let closeButton = document.createElement("button");
+                            closeButton.innerHTML = "Close";
+                            closeButton.className = "btn cancel";
+                            closeButton.type = "button";
+                            closeButton.id = "closeNecklaceButtonId";
+
+                            closeButton.addEventListener('click', function(event) {
+                                closeNecklaceForms();
+                            });
+
+                            form.appendChild(updateButton);
+                            form.appendChild(closeButton);
+
+                            document.getElementById("necklacePopupForm").style.display = "block";
+                        }
+                    });
+
+                    currentCell.appendChild(btn);
+                    createdBtn = true;
+                    resolve(createdBtn);
+                });
+            }
+
+            function setupPrivateUserData(element) {
+                var data = 1; 
+                var url;
+
+                element.setPrivate = function ( d ) { data = d; }
+                element.getPrivate = function ( ) { return data; }
+
+                element.setUrl = function ( d ) { url = d; }
+                element.getUrl = function ( ) { return url; }
+            }
+
+            function closeUserForms() {
+                var form = document.getElementById("updateUserForm");
+                try {
+                    form.removeChild(document.getElementById("updateUserButtonId"));
+                    form.removeChild(document.getElementById("closeUserButtonId"));
+                }
+                catch {
+                }
+                document.getElementById("userPopupForm").style.display = "none";
+                document.getElementById("createPopupForm").style.display = "none";
+            }
+
+            function closeNecklaceForms() {
+                var form = document.getElementById("updateNecklaceForm");
+                try {
+                    form.removeChild(document.getElementById("updateNecklaceButtonId"));
+                    form.removeChild(document.getElementById("closeNecklaceButtonId"));
+                }
+                catch {
+                }
+                document.getElementById("necklacePopupForm").style.display = "none";
+                document.getElementById("createNecklacePopupForm").style.display = "none";
+            }
+
+            async function updateUser(userData, url) {
+                var userUpdateResult, userGetResult, userData, fname, lname, email, admin, rawData;
+                fname = document.getElementById("update-fname").value;
+                lname = document.getElementById("update-lname").value;
+                email = document.getElementById("update-email").value;
+                admin = document.getElementById("updateAdminCheckbox").value;
+                console.log("ADMIN IS " + admin);
+
+                var rawData = await packageRawData(userData, [fname, lname, email, admin]);
+                console.log("rawData is " + rawData);
+                console.log("url is " + url);
+                userUpdateResult = await sendData(rawData, url, "PUT");
+                refreshTable(url);
+            }
+
+            async function updateNecklace(necklaceData, url) {
+                var necklaceUpdateResult, necklaceGetResult, brand, type, material, gem, imgPath;
+                var description, price, quantity;
+
+                brand = document.getElementById("update-brand").value;
+                type = document.getElementById("update-type").value;
+                material = document.getElementById("update-material").value;
+                gem = document.getElementById("update-gem").value;
+                imgPath = document.getElementById("update-imgPath").value;
+                description = document.getElementById("update-description").value;
+                price = document.getElementById("update-price").value;
+                quantity = document.getElementById("update-quantity").value;
+
+                var rawData = await packageRawData(necklaceData, [brand, type, material, gem,
+                                                                imgPath, description, price,
+                                                                quantity]);
+                console.log("rawData is " + rawData);
+                console.log("url is " + url);
+                userUpdateResult = await sendData(rawData, url, "PUT");
+                refreshTable(url);
+            }
+
+            function updateForm(userData) {
+                return new Promise((resolve, reject) => {
+                    for (const pair of Object.entries(userData)) {
+                        const [key,value] = pair;
+                        if (key == "firstName")
+                            document.getElementById("update-fname").value = value;
+                        else if (key == "lastName")
+                            document.getElementById("update-lname").value = value;
+                        else if (key == "email")
+                            document.getElementById("update-email").value = value;
+                        else if (key == "isAdmin") {
+                            if (value == "yes") {
+                                document.getElementById("updateAdminCheckbox").checked = true;
+                                document.getElementById("updateAdminCheckbox").value = "yes";
+                            }
+                            else {
+                                document.getElementById("updateAdminCheckbox").checked = false;
+                                document.getElementById("updateAdminCheckbox").value = "no";
+                            }
+                        }
+                        else {
+                        }
+                    }
+
+                    if (userData)
+                        resolve("success");
+                    else
+                        reject("something is wrong with userData");
+                });
+            }
+
+            function updateNecklaceForm(necklaceData) {
+                return new Promise((resolve, reject) => {
+                    for (const pair of Object.entries(necklaceData)) {
+                        const [key,value] = pair;
+                        if (key == "brand")
+                            document.getElementById("update-brand").value = value;
+                        else if (key == "type")
+                            document.getElementById("update-type").value = value;
+                        else if (key == "material")
+                            document.getElementById("update-material").value = value;
+                        else if (key == "gem")
+                            document.getElementById("update-gem").value = value;
+                        // HTML does not allow the "file" type to be preset by a coded value. Only end-user can choose file.
+                        /*
+                        else if (key == "imgPath")
+                            document.getElementById("update-imgPath").value = value;
+                        */
+                        else if (key == "description")
+                            document.getElementById("update-description").value = value;
+                        else if (key == "price")
+                            document.getElementById("update-price").value = value;
+                        else if (key == "quantity")
+                            document.getElementById("update-quantity").value = value;
+                        else {
+                        }
+                    }
+                    if (necklaceData)
+                        resolve("success");
+                    else
+                        reject("something is wrong with necklaceData");
+                });
+            }
+
+            function refreshTable(url) {
+                return new Promise((resolve, reject) => {
+                    if (url == "/v1/users.php?") {
+                        userBtnSearch.click();
+                    }
+                    else if (url == "/v1/necklaces.php?") {
+                        necklaceBtnSearch.click();
+                    }
+                    else {
+                    }
+                    resolve("");
+                });
+            }
+        
+
+        </script>
+
+            <!-- JavaScript Libraries -->
+            <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+            <!--
+			<script src="assets/js/jquery.min.js"></script>
+		    <script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+            -->
+
+
+
+    </body>
+</html>

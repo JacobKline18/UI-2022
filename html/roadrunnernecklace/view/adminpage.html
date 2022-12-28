@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Page Title</title>
+        <meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/adminpage.css" />
+		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+    </head>
+
+    <body class="is-preload">
+        <!-- Wrapper -->
+            <div id="wrapper">
+
+                <!-- Header -->
+                    <header id="header">
+                        <div class="inner">
+
+                            <!-- Logo -->
+                                <a href="index.html" class="logo">
+                                    <span class="symbol"><img src="images/logo.svg" alt="" /></span><span class="title">Phantom</span>
+                                </a>
+
+                            <!-- Nav -->
+                                <nav>
+                                    <ul>
+                                        <li><a href="#menu">Menu</a></li>
+                                    </ul>
+                                </nav>
+
+                        </div>
+                    </header>
+
+                <!-- Menu -->
+                    <nav id="menu">
+                        <h2>Menu</h2>
+                        <ul>
+                            <li><a href="landingpage.html">Home</a></li>
+                            <li><a href="userpage.html">Create Account</a></li>
+                            <li><a href="generic.html">generic</a></li>
+                            <li><a href="generic.html">generic</a></li>
+                            <li><a href="adminpage.html">Admin Page</a></li>
+                        </ul>
+                    </nav>
+                    <div id="main">
+                        <div class="inner">
+                            <h1>Admin Page</h1>
+                            <div class="tab">
+                                <button class="tablinks" onclick="openCity(event, 'Items', 'itemTable')">Items</button>
+                                <button class="tablinks" onclick="openUsers(event, 'Users', 'userTable')">Users</button>
+                                <button class="tablinks" onclick="openCity(event, 'Orders', 'orderTable')">Orders</button>
+                            </div>
+                              
+                            <div id="Items" class="tabcontent">
+                                <h3>Items</h3>
+                            </div>
+                              
+                            <div id="Users" class="tabcontent">
+                                <div class="form-popup" id="popupForm">
+                                    <form action="/action_page.php" class="form-container" id="updateUserForm">
+                                      <h1>Update User</h1>
+                                  
+                                      <label for="First Name"><b>First Name</b></label>
+                                      <input type="text" id="fname" placeholder="Edit first name" name="first name">
+                                  
+                                      <label for="Last Name"><b>Last Name</b></label>
+                                      <input type="text" id="lname" placeholder="Edit last name" name="last name">
+                                  
+                                      <label for="Email"><b>Email</b></label>
+                                      <input type="text" id="email" placeholder="Edit email" name="email">
+
+                                      <label for="Is Admin"><b>Is Admin</b></label>
+                                      <input type="checkbox" id="isAdmin" name="isanadmin">
+
+                                      <button type="submit" class="btn">Update User</button>
+                                      <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+                                    </form>
+                                </div>
+                                <!---
+                                <div class="vtab">
+                                    <button class="tablinks" onclick="openUsers(event, 'Users', 'userTable')">Select</button>
+                                    <button class="tablinks" onclick="openUsers(event, 'Users', 'userTable')">Create</button>
+                                    <button class="tablinks" onclick="openCity(event, 'Orders', 'orderTable')">Update</button>
+                                    <button class="tablinks" onclick="openCity(event, 'Orders', 'orderTable')">Delete</button>
+                                </div>
+                                --->
+                                <form action="http://roadrunnernecklaces.com/v1/users.php" method="GET" id="get_users">
+                                    <button type="submit" id="btn_user_search">Search</button>
+                                    <input type="text" id="userSearch" name="searchUser" placeholder="Enter first name, last name, or email here"><br>
+                                </form>
+                                <table id="userTable">
+                                    <thead>
+                                        <tr>
+                                            <th>Action</th>
+                                            <th>First Name</th>
+                                            <th>Last Name</th>
+                                            <th>Email</th>
+                                            <th>Admin Rights?</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                            </div>
+                              
+                            <div id="Orders" class="tabcontent">
+                                <h3>Orders</h3>
+                                <p>Tokyo is the capital of Japan.</p>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+
+        <!-- Scripts -->
+            <script>
+                function openCity(evt, tabName, tableName) {
+                    // Declare all variables
+                    var i, tabcontent, tablinks;
+
+                    // Get all elements with class="tabcontent" and hide them
+                    tabcontent = document.getElementsByClassName("tabcontent");
+                    for (i = 0; i < tabcontent.length; i++) {
+                        tabcontent[i].style.display = "none";
+                    }
+
+                    // Get all elements with class="tablinks" and remove the class "active"
+                    tablinks = document.getElementsByClassName("tablinks");
+                    for (i = 0; i < tablinks.length; i++) {
+                        tablinks[i].className = tablinks[i].className.replace("active", "");
+                    }
+
+                    // Show the current tab, and add an "active" class to the button that opened the tab
+                    document.getElementById(tabName).style.display = "block";
+                    evt.currentTarget.className += "active";
+                }
+            </script>
+
+            <script>
+                async function openUsers(evt, tabName, tableName) {
+                    // Declare all variables
+                    var i, tabcontent, tablinks, url, userGetResult;
+                    var userData = new FormData();
+
+                    url = "http://roadrunnernecklaces.com/v1/users.php";
+
+                    // Get all elements with class="tabcontent" and hide them
+                    tabcontent = document.getElementsByClassName("tabcontent");
+                    for (i = 0; i < tabcontent.length; i++) {
+                        tabcontent[i].style.display = "none";
+                    }
+
+                    // Get all elements with class="tablinks" and remove the class "active"
+                    tablinks = document.getElementsByClassName("tablinks");
+                    for (i = 0; i < tablinks.length; i++) {
+                        tablinks[i].className = tablinks[i].className.replace("active", "");
+                    }
+
+                    // Show the current tab, and add an "active" class to the button that opened the tab
+                    document.getElementById(tabName).style.display = "block";
+                    evt.currentTarget.className += "active";
+ 
+                    /*
+                    packageFormData({"" : ""}).then(function(userData) {
+                        console.log("userData is " + userData);
+                        console.log("url is " + url);
+                        userGetResult = getData(userData, url);
+                        return userGetResult;
+                    }).then(function(userGetResult) {
+                        console.log("userGetResult is " + userGetResult);
+                        createDynamicTable(userGetResult, 'userTable');
+                    });
+                    */
+                    
+                    userData = await packageFormData({"" : ""});
+                    console.log("userData is " + userData);
+                    console.log("url is " + url);
+
+                    userGetResult = await sendData(userData, url, "GET");
+                
+                    console.log("userGetResult is " + userGetResult);
+                    await createDynamicTable(userGetResult, 'userTable');
+    
+                }
+            </script>
+            
+
+<!-- Script for searching a User-->
+        <script>
+            const userBtnSearch = document.getElementById('btn_user_search');
+            const userSearch = document.getElementById('userSearch');
+            const adminPriv = document.getElementById('isAdmin').value;
+            $('#isAdmin').change(function(){
+                this.value = (Number(this.checked));
+            });
+
+            userBtnSearch.addEventListener('click', async function(event) {
+
+                var userData = new FormData();
+                var url = document.getElementById('get_users').action + "?";
+                var userGetResult;
+
+                event.preventDefault();
+                console.log("CLICKED SEARCH BUTTON");
+
+                userData = await packageFormData({firstName   : userSearch.value,
+                                              lastName    : userSearch.value,
+                                              email       : userSearch.value}); 
+
+                url = await attachUrlParameters(userData, url);
+                console.log("userData is " + userData);
+                console.log("url is " + url);
+
+                userGetResult = await sendData(userData, url, "GET");
+            
+                console.log("userGetResult is " + userGetResult);
+                await createDynamicTable(userGetResult, 'userTable');
+
+            });
+
+            function packageFormData(data) {
+                return new Promise((resolve, reject) => {
+                    formData = new FormData();
+                    // Push our data into our FormData object
+                    for (const [name, value] of Object.entries(data)) {
+                        formData.append(name, value);
+                        console.log(name + " " + value);
+                    }
+
+                    if (formData) {
+                        resolve(formData);
+                    }
+                    else {
+                        reject("Something went wrong converting data into FormData object");
+                    }
+                })
+            };
+
+            function attachUrlParameters(userData, url) {
+                return new Promise((resolve, reject) => {
+                    console.log("HEY");
+                    for (const [key, value] of userData) {
+                        url += key + "=" + value + "&";
+                    }
+                    if (url) {
+                        resolve(url);
+                    }
+                    else {
+                        reject("something wrong occurred with the url");
+                    }
+                })
+            };
+
+            function sendData(data, url, httpMethod) {
+                return new Promise((resolve, reject) => {
+                    const XHR = new XMLHttpRequest();
+                    var returnData;
+
+                    // set the proper 'GET' HTTP URL
+                    XHR.open(httpMethod, url, true);
+                    console.log("inside sendData function");
+                    console.log("url inside sendData() is " + url);
+
+                    // Define what happens on successful data submission
+                    XHR.addEventListener('load', (event) => {
+                        console.log('Yeah! Data sent and response loaded.');
+                    });
+
+                    // Define what happens in case of error
+                    XHR.addEventListener('error', (event) => {
+                        alert('Oops! Something went wrong.');
+                    });
+
+                    XHR.onreadystatechange = function () {
+                        if (XHR.readyState === 4) {
+                            if (XHR.status == 400) {
+                                alert("Please fill in at least one field!");
+                            }
+                            if (XHR.status == 200) {
+                                returnData = JSON.parse(XHR.responseText);
+                                console.log(XHR.status);
+                                console.log(XHR.responseText);
+                                console.log("RETURN DATA IS " + returnData);
+                                resolve(returnData);
+                            }
+                            if (XHR.status == 202) {
+                                alert(XHR.responseText);
+                            }
+                        }
+                    };
+
+                    XHR.send(data);
+                })};
+        </script>
+
+        <script>
+            async function createDynamicTable(sqlRows, tableName) {
+                // Find the correct table
+                var table = document.getElementById(tableName);
+                // target the tbody
+                var tbodyRef = table.getElementsByTagName('tbody')[0];
+                // clear the previous search results (if any)
+                tbodyRef.remove();
+                // create a new tbody
+                tbodyRef = document.getElementById(tableName).createTBody();
+
+                // promise to be returned from creating delete button
+                var deleteButtonResult;
+
+                console.log("inside createDynamicTable");
+                console.log("sqlRows type is " + typeof(sqlRows));
+                console.log(sqlRows["response"]);
+                for (const pair of Object.entries(sqlRows["response"])) {
+                    // transforming JSON into separable rows for each item, user, order, etc.
+                    const [key, rowData] = pair;
+                    // Insert a row at the end of the table
+                    var newRow = tbodyRef.insertRow();
+
+                    for (const pair of Object.entries(rowData)) {
+                        const [key,value] = pair;
+                        var newCell = newRow.insertCell();
+                        //console.log("Iterating");
+                        //console.log("pair is " + pair + " and key is " + key + " and value is " + value);
+                        if (key == "user_id") {
+                            const userData = await packageFormData({userId   : value});
+                            // insert a cell for a delete button
+                            updateButtonResult = await createUpdateButton(newCell, newRow, rowData);
+                            deleteButtonResult = await createDeleteButton(newCell, newRow, userData);
+                        }
+
+                        if ((key != "password") && (key != "user_id")) {
+                            //console.log("Entered others");
+                            // Insert a cell at the end of the row
+
+                            // Append the corresponding user data to the end of each cell
+                            var newText = document.createTextNode(value);
+                            newCell.appendChild(newText);
+                        }
+                        //console.log("This should happen at the very end of each row creation");
+                    }
+                };
+            }
+
+            
+            async function createDeleteButton(currentCell, currentRow, userData) {
+                return new Promise((resolve, reject) => {
+                    var createdBtn;
+
+                    var btn = document.createElement('input');
+                    setupPrivateUserData(btn);
+                    btn.setPrivate(userData);
+                    btn.type = "button";
+                    btn.className = "btn";
+                    btn.value = "Delete";
+                    console.log("btn.value is " + btn.value);
+                    for(var pair of Object.entries(btn.getPrivate())){
+                        console.log(pair[0], pair[1]);
+                    }
+
+                    btn.onclick = (async function() {
+                        var userDeleteResult, userGetResult;
+                        var userData = new FormData();
+                        var url = "http://roadrunnernecklaces.com/v1/users.php?";
+
+                        for(var pair of Object.entries(btn.getPrivate())){
+                            console.log("CLICKED " + pair[0], pair[1]);
+                        }
+                        url = await attachUrlParameters(btn.getPrivate(), url);
+                        console.log("url is " + url);
+                        userDeleteResult = await sendData(btn.getPrivate(), url, "DELETE");
+
+                        userBtnSearch.click();
+                    });
+
+                    currentCell.appendChild(btn);
+                    createdBtn = true;
+                    resolve(createdBtn);
+                });
+            }
+
+            async function createUpdateButton(currentCell, currentRow, userData) {
+                return new Promise((resolve, reject) => {
+                    var createdBtn;
+                    url = "http://roadrunnernecklaces.com/v1/users.php?";
+
+                    var btn = document.createElement('input');
+                    setupPrivateUserData(btn);
+                    btn.setPrivate(userData);
+                    btn.type = "button";
+                    btn.value = "Update";
+                    console.log("btn.value is " + btn.value);
+
+                    for(var pair of  Object.entries(btn.getPrivate())){
+                        console.log(pair[0], pair[1]);
+                    }
+
+                    btn.onclick = (function() {
+                        var form = document.getElementById("updateUserForm");
+                        for (const pair of Object.entries(btn.getPrivate())) {
+                            const [key,value] = pair;
+                            if (key == "firstName")
+                                document.getElementById("fname").value = value;
+                            else if (key == "lastName")
+                                document.getElementById("lname").value = value;
+                            else if (key == "email")
+                                document.getElementById("email").value = value;
+                            else if (key == "isAdmin") 
+                                console.log("isAdmin value is " + adminPriv);
+                            else {
+                            }
+                        }
+                        document.getElementById("popupForm").style.display = "block";
+                    });
+
+                    currentCell.appendChild(btn);
+                    createdBtn = true;
+                    resolve(createdBtn);
+                });
+            }
+
+            function setupPrivateUserData(element) {
+                var private = 1; 
+                element.setPrivate = function ( d ) { private = d; }
+                element.getPrivate = function ( ) { return private; }
+            }
+
+            function closeForm() {
+                document.getElementById("popupForm").style.display = "none";
+            }
+        
+
+        </script>
+
+
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+    </body>
+</html>

@@ -1,0 +1,1002 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Roadrunner Necklaces</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+    <!-- Custom Filter -->
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://www.w3schools.com/lib/w3.js"></script>
+
+    <!-- Favicon -->
+    <link href="img/favicon.ico" rel="icon">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Rubik&display=swap" rel="stylesheet"> 
+
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.0/css/all.min.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="lib/owlnecklaceousel/assets/owl.necklaceousel.min.css" rel="stylesheet">
+    <link href="lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link href="css/style.css" rel="stylesheet">
+</head>
+
+<body>
+
+    <!-- Topbar Start -->
+    <div class="container-fluid bg-dark py-3 px-lg-5 d-none d-lg-block">
+        <div class="row">
+            <div class="col-md-6 text-center text-lg-left mb-2 mb-lg-0">
+                <div class="d-inline-flex align-items-center">
+                    <a class="text-body pr-3" href=""><i class="fa fa-phone-alt mr-2"></i>+0 210 123 4567</a>
+                    <span class="text-body">|</span>
+                    <a class="text-body px-3" href=""><i class="fa fa-envelope mr-2"></i>info@example.com</a>
+                </div>
+            </div>
+            <div class="col-md-6 text-center text-lg-right">
+                <div class="d-inline-flex align-items-center">
+                    <a class="text-body px-3" href="">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a class="text-body px-3" href="">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a class="text-body px-3" href="">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                    <a class="text-body px-3" href="">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a class="text-body pl-3" href="">
+                        <i class="fab fa-youtube"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Topbar End -->
+
+    <!-- Navbar Start -->
+    <div class="container-fluid position-relative nav-bar p-0" style="font-family: Helvetica;"> 
+        <div class="position-relative px-lg-5" style="z-index: 9; background: #2B2E4A;">
+            <nav class="navbar navbar-expand-lg bg-secondary navbar-dark py-3 py-lg-0 pl-3 pl-lg-5">
+                <a href="" class="navbar-brand">
+                    <h1 class="text-uppercase text-primary mb-1">Roadrunner Necklaces</h1>
+                </a>
+                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse justify-content-between px-3" id="navbarCollapse">
+                    <div class="navbar-nav ml-auto py-0">
+                        <a href="index.html" class="nav-item nav-link">Home</a>
+                        <a href="necklaces.html" class="nav-item nav-link active">Necklaces</a>
+                        <a id="dynamicTab" href="login.html" class="nav-item nav-link">Login/Signup</a>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </div>
+    <!-- Navbar End -->
+
+    <!-- Search Start -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript">
+        window.onload = function() {
+            document.getElementById("DropDownNecklaceType").value = JSON.parse(sessionStorage.necklaceType);
+            document.getElementById("DropDownMaterial").value = JSON.parse(sessionStorage.necklaceMaterial);
+            document.getElementById("DropDownGem").value = JSON.parse(sessionStorage.necklaceGem);
+            document.getElementById("textSearch").value = JSON.parse(sessionStorage.necklaceText);
+
+            let searchText = JSON.parse(sessionStorage.necklaceText);
+            let necklaceTableText = document.querySelectorAll("#table div div div h4");
+            for(i = 0; i < necklaceTableText.length; i++){
+                if(!(necklaceTableText[i].outerText).includes(searchText.toUpperCase())){
+                    necklaceTableText[i].parentElement.parentElement.parentElement.style.display = "none";
+                };
+            }
+
+        }
+        
+        function updateSearch()
+        {
+            sessionStorage.setItem("necklaceType", JSON.stringify(document.getElementById("DropDownNecklaceType").value));
+            sessionStorage.setItem("necklaceMaterial", JSON.stringify(document.getElementById("DropDownMaterial").value));
+            sessionStorage.setItem("necklaceGem", JSON.stringify(document.getElementById("DropDownGem").value));
+            sessionStorage.setItem("necklaceText", JSON.stringify(document.getElementById("textSearch").value));
+        }
+
+        function clearSearch()
+        {
+            sessionStorage.removeItem("necklaceType");
+            sessionStorage.removeItem("necklaceMaterial");
+            sessionStorage.removeItem("necklaceGem");
+            sessionStorage.removeItem("necklaceText");
+            
+            document.getElementById("DropDownNecklaceType").value = "Necklace Type";
+            document.getElementById("DropDownMaterial").value = "Material";
+            document.getElementById("DropDownGem").value = "Gem";
+            document.getElementById("textSearch").value = "";
+            location.reload();
+        }
+    </script>
+    <style>
+        span input[type="text"] {
+            border: 1px solid #eee;
+            margin: 10px;
+            padding: 5px;
+            -moz-transition: all .5s;
+            -webkit-transition: all .5s;
+            transition: all .5s;
+        }
+
+        span input[type="text"]:focus {
+        border-color: #FFA500;
+        outline: 0;
+        -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(233, 174, 102, 0.6);
+        box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(233, 163, 102, 0.6);
+        } 
+        .custominput:focus{
+            outline: none !important;
+        }
+    </style>
+    <section> <br>
+        <div class="cbg-white pt-1 px-lg-5" style="align-content: center;">
+            <div class="row mx-n2" style="align-content: center;">
+                <div class="col-xl-2 col-lg-4 col-md-5 px-2">
+                    <select class="custom-select px-4 mb-3" style="height: 50px;" id="DropDownNecklaceType" onchange="updateSearch()" >
+                        <option selected>Necklace Type</option>
+                        <option value="Bib">Bib</option>
+                        <option value="Chain">Chain</option>
+                        <option value="Charm">Charm</option>
+                        <option value="Collar">Collar</option>
+                        <option value="Lariat">Lariat</option>
+                        <option value="Locket">Locket</option>
+                        <option value="Multi-Strand">Multi-Strand</option>
+                        <option value="Paperclip">Paperclip</option>
+                        <option value="Pearl Strand">Pearl Strand</option>
+                        <option value="Pendant">Pendant</option>
+                        <option value="Station">Station</option>
+                        <option value="Tennis">Tennis</option>
+                    </select>
+                </div>
+                <div class="col-xl-2 col-lg-4 col-md-6 px-2">
+                    <select class="custom-select px-4 mb-3" style="height: 50px;" id="DropDownMaterial" onchange="updateSearch()">
+                        <option selected>Material</option>
+                        <option value="Crystal Lacquer">Crystal Lacquer</option>
+                        <option value="Gold">Gold</option>
+                        <option value="Rose Gold">Rose Gold</option>
+                        <option value="Silk">Silk</option>
+                        <option value="Sterling Silver">Sterling Silver</option>
+                        <option value="Titanium">Titanium</option>
+                        <option value="White Gold">White Gold</option>
+                    </select>
+                </div>
+                <div class="col-xl-2 col-lg-4 col-md-6 px-2"> 
+                    <select class="custom-select px-4 mb-3" style="height: 50px;" id="DropDownGem" onchange="updateSearch()">
+                        <option selected>Gem</option>
+                        <option value="None">None</option>
+                        <option value="Amethyst">Amethyst</option>
+                        <option value="Black Diamond">Black Diamond</option>
+                        <option value="Citrine">Citrine</option>
+                        <option value="Diamond">Diamond</option>
+                        <option value="Emerald">Emerald</option>
+                        <option value="Garnet">Garnet</option>
+                        <option value="Onyx">Onyx</option>
+                        <option value="Peridot">Peridot</option>
+                        <option value="Ruby">Ruby</option>
+                        <option value="Sapphire">Sapphire</option>
+                        <option value="Topaz">Topaz</option>
+                        <option value="White Crystal">White Crystal</option>
+                    </select>
+                </div>
+                <div class="col-xl-2 col-lg-4 col-md-6 px-2">
+                    <input type="text" id="textSearch" class="btn-primary btn-block mb-3 custominput" style="height: 50px; line-height: 35px; border-color:rgba(128, 128, 128, 0.256); 
+                            border-width: 1px; background-color: white; color: black; padding-left: 22px;" placeholder="Search Text" onkeyup="updateSearch()"></input>
+                </div>
+                <div class="col-xl-2 col-lg-4 col-md-6 px-2">
+                    <button class="btn btn-primary btn-block mb-3" style="height: 50px; line-height: 35px; filter: grayscale(1);" onclick="clearSearch()" target="_top">Clear Search</button>
+                </div>
+                <div class="col-xl-2 col-lg-4 col-md-6 px-2">
+                    <!--<a class="btn btn-primary btn-block mb-3" style="height: 50px; line-height: 35px;" href="necklaces.html" target="_top">Search</a> -->
+                    <button id="mainSearch" class="btn btn-primary btn-block mb-3" style="height: 50px; line-height: 35px;" href="necklaces.html" target="_top">Search</button>
+                </div>
+                
+            </div>
+        </div>
+    </section>
+    <!-- Search End -->
+
+    <!-- Sort Price Start -->
+    <section>
+    <div style="position: fixed; bottom:10px; right:10px;">
+        <button class="btn btn-primary btn-block mb-3" style="filter: grayscale(1); font-size: 20px; z-index: -1;" onclick="sortHighToLow()" id="sortHighToLow">$🡅</button>
+        <button class="btn btn-primary btn-block mb-3" style="filter: grayscale(1); font-size: 20px; z-index: -1;" onclick="sortLowToHigh()" id="sortLowToHigh">$🡇</button>
+        <script>
+            function sortHighToLow(){
+                let parent_div = document.getElementById("necklacelist");
+                let child_div = '.class-necklace';
+                var $wrapper = $(parent_div);
+
+                $wrapper.find(child_div).detach().sort(function(a, b) {
+                    return $(b).data('price') - $(a).data('price');
+                    }).appendTo($wrapper);
+
+                document.getElementById("sortHighToLow").style.filter = "none";
+                document.getElementById("sortLowToHigh").style.filter = "grayscale(1)";
+            }
+            function sortLowToHigh(){
+                let parent_div = document.getElementById("necklacelist");
+                let child_div = '.class-necklace';
+                var $wrapper = $(parent_div);
+
+                $wrapper.find(child_div).detach().sort(function(a, b) {
+                    return $(a).data('price') - $(b).data('price');
+                    }).appendTo($wrapper);
+
+                document.getElementById("sortHighToLow").style.filter = "grayscale(1)";
+                document.getElementById("sortLowToHigh").style.filter = "none";
+            }
+        </script>
+    </div>
+    </section>
+
+
+    <!-- Sort Price End -->
+
+
+
+    <!-- Shopping Cart Start -->
+    <section>
+    <style>
+        .thought {
+            display:flex;
+            background-color:#F77D0A;
+            padding:20px;
+            border-radius:30px;
+            width:70px;
+            max-width:220px;
+            min-height:40px;
+            margin:20px;
+            position:relative;
+            align-items:center;
+            justify-content:center;
+            text-align:center;
+        }
+        .thought:before,
+        .thought:after {
+            content:"";
+            background-color:#F77D0A;
+            border-radius:50%;
+            display:block;
+            position:absolute;
+            z-index:-1;
+        }
+        .thought:before {
+            width:44px;
+            height:44px;
+            top:-12px;
+            left:28px;
+            box-shadow:-50px 30px 0 -12px #F77D0A;
+        }
+        .thought:after {
+            bottom:-10px;
+            right:26px;
+            width:30px;
+            height:30px;
+            box-shadow:40px -34px 0 0 #F77D0A,
+                        -28px -6px 0 -2px #F77D0A,
+                        -24px 17px 0 -6px #F77D0A,
+                        -5px 25px 0 -10px #F77D0A;
+            
+        }
+    </style>
+    <script>
+        function openCart(){
+            if(document.getElementById("shoppingCart").style.display=="none"){
+                document.getElementById("shoppingCart").style.display="block"
+            } else {
+                document.getElementById("shoppingCart").style.display="none"
+            }
+        }
+    </script>
+        <button id="shoppingCartIcon" class="thought" style="position: fixed; bottom:20px; left:20px; z-index: 100; border-width: 0px; filter: grayscale(1);" onclick="openCart()">
+            <i class="fa fa-2x fa-shopping-cart text-secondary"></i>
+        </button>
+        <div id="shoppingCart" style="z-index: 99;top: 45.5%; left: 50%; width: 400px; height: 560px; margin-top: -16em; margin-left: -11.9em; 
+        position: fixed; border: 0px; display: none; background-color: rgba(211, 211, 211, 0.9); border-radius: 20px;">
+        <!--- Build Shopping Cart Here --->
+            <div style="position: relative; padding: 20px; width: 400px;">
+                <h1>Shopping Cart</h1>
+                <p>Roadrunner Necklaces</p>
+                <div id="shoppingCartItems" style="overflow-y: scroll; height: 200px; background-color: rgba(236, 236, 236, 0.879); border-radius: 15px; padding: 15px;">
+                    <div class="insertItemsHere"> </div>
+                </div> <br>
+            </div>
+
+            <!-- Payment -->
+            <script>
+            </script>
+            <form style="padding:20px; padding-top: 0px; margin-top: -62px;">
+                <br>
+                <label style="margin-bottom: -15px; display: inline; margin-right: 85px;" for="street">Street Address</label>
+                <label style="margin-bottom: -15px; display: inline; margin-right: 71px;" for="city">City</label>
+                <label style="margin-bottom: -15px; display: inline;" for="state">State</label>
+                <br>
+                <input type="text" id="street" placeholder="123rd Street" onkeyup="check_street()"/>
+                <input type="text" id="city" placeholder="City" style="width:100px;" onkeyup="check_city()"/>
+                <input type="text" id="state" placeholder="ST" style="width:50px;" onkeyup="check_state()"/>
+            </form>
+            <form style="padding:20px; padding-top: 0px; margin-top: -15px;">
+                <label style="margin-bottom: -15px;" for="cc-firstName">First Name</label>
+                <label style="margin-bottom: -15px;" for="cc-lastName">Last Name</label>
+                <br>
+                <input type="text" id="cc-firstName" placeholder="John" style="width:82px;" onkeyup="check_cc_firstName()"/>
+                <input type="text" id="cc-lastName" placeholder="Smith" style="width:82px;" onkeyup="check_cc_lastName()"/>
+                <br>
+                <label style="margin-bottom: -15px;" for="cc">Credit/Debit Card Number</label>
+                <input type="text" id="cc" placeholder="XXXXXXXXXXXXXXXX" onkeyup="check_cc()"/>
+                <br>
+                <label style="margin-bottom: -15px; display: inline; margin-right: 65px;" for="cc-date">Date</label>
+                <label style="margin-bottom: -15px; display: inline;" for="cc-cvc">CVC</label>
+                <br>
+                <input type="text" id="cc-date" placeholder="MM/YYYY" style="width:100px;" onkeyup="check_date()"/>
+                <input type="text" id="cc-cvc" placeholder="123" style="width:50px;" onkeyup="check_cvc()"/>
+            </form>
+            <div id="checkoutCost" style="margin-top: -160px; margin-left: 220px; font-size: smaller; background-color: rgba(236, 236, 236, 0.879); border-radius: 15px; padding: 15px; padding-top: 10px; width: 160px; height: 150px;">
+                <p style="display: inline;">Subtotal: $</p><div id="subtotal" style="display: inline;">0</div>
+                <p style="display: inline;">Shipping: $</p><p style="display: inline;" id="shippingCost">9.99</p><p style="display: inline;"> (US)</p>
+                <p style="display: inline;">Tax: </p><p style="display: inline;" id="tax">8.25</p><p style="display: inline;">% (US)</p>
+                <p style="display: inline;">Total: $</p><div id="total" style="display: inline;">0</div>
+            </div>
+            <button id="confirmOrderBtn" class="btn btn-primary btn-block mb-3" style="border-radius: 10px; width: 150px; margin-left:56%; margin-top:-12%;" onclick="check_all()">Confirm Order</button>
+            <!-- Payment End -->
+        <!--- End --->
+        </div>
+    </section>
+    <!-- Shopping Cart End -->
+
+
+
+
+
+    <!-- Display Start -->
+    <script>
+
+        var cartOrderData = {};
+
+        function changeQuantity(id, cartName, direction){
+            if(direction=="decrement"){
+                let quantity = Number(document.getElementById(id + "_quantity").textContent)
+                document.getElementById(id + "_quantity").textContent = quantity-1;
+                cartOrderData[cartName] -= 1;
+                if(document.getElementById(id + "_quantity").textContent==0){
+                    const item = document.getElementById(id);
+                    item.remove();
+                    delete cartOrderData[cartName];
+                }
+            } else if (direction=="increment"){
+                if(document.getElementById(id + "_quantity").textContent==0){ // compare max quantity
+                    //dont allow increment
+                    return;
+                }
+                let quantity = Number(document.getElementById(id + "_quantity").textContent)
+                document.getElementById(id + "_quantity").textContent = quantity+1;
+                cartOrderData[cartName] += 1;
+                if(document.getElementById(id + "_quantity").textContent==0){ // compare max quantity
+                    //dont allow increment
+                }
+            }
+            var ids = Array.from(document.getElementById('shoppingCartItems').children).map(element => {
+                return element.id;
+            });
+            var quantities = [];
+            var prices = [];
+            for (i=1;i<ids.length;i++){
+                quantities.push(document.getElementById(ids[i]+"_quantity").textContent)
+                var str=document.getElementById(ids[i]+"_price").textContent
+                prices.push(str.substring(1).substring(0, str.length - 6))
+            }
+            sessionStorage.setItem("ids", ids.slice(1))
+            sessionStorage.setItem("quantities", quantities)
+            sessionStorage.setItem("prices", prices)
+            var subtotalArr = quantities.map(function (num, idx) {
+                return num * prices[idx];
+            });
+            var subtotal = subtotalArr.reduce((partialSum, a) => partialSum + a, 0);
+            let tax = Number(document.getElementById("tax").textContent);
+            let shippingCost = Number(document.getElementById("shippingCost").textContent);
+            document.getElementById("subtotal").textContent = subtotal.toFixed(2);
+            document.getElementById("total").textContent = ((subtotal+shippingCost)+(subtotal+shippingCost)*(tax/100)).toFixed(2);
+            if (document.getElementById("total").textContent == 10.81)
+                document.getElementById("total").textContent = 0;
+        }
+    </script>
+    <script>
+    
+        async function getNecklaceData() {
+            var necklaceData, necklaceGetResult, url;
+            url = "/v1/necklaces.php?"
+            necklaceData = await packageFormData({"" : ""});
+            necklaceGetResult = await sendData(necklaceData, url, "GET");
+            necklaceGetResult = necklaceGetResult['response'];
+            return necklaceGetResult;
+        }
+
+        async function getNecklaceFromID(key) {
+            console.log("getNecklaceFromID Key is " + key);
+            var necklaceData, necklaceGetResult, url;
+            url = "/v1/necklaces.php?";
+            necklaceData = await packageFormData({necklace_id : key});
+            url = await attachUrlParameters(necklaceData, url);
+            necklaceGetResult = await sendData(necklaceData, url, "GET");
+            necklaceGetResult = necklaceGetResult['response'];
+            return necklaceGetResult;
+        }
+
+        async function bookThis(key) {
+            console.log("BookThis Key is " + key);
+            data = await getNecklaceFromID(key);
+            console.log("DATA PULLED IS " + JSON.stringify(data[0]));
+            sessionStorage.setItem("addToCart", JSON.stringify(data[0]));
+        }
+
+        function addToCart(){
+            document.getElementById("shoppingCartIcon").style.filter="none"
+            let basket = document.getElementsByClassName("insertItemsHere")[0]
+            var addToCart = JSON.parse(sessionStorage.addToCart);
+            var elementExists = document.getElementById(addToCart.brand + " " + addToCart.material + " " + addToCart.type + " Necklace");
+            console.log("element " + addToCart + "addToCart.brand is " + addToCart.brand);
+            //var cartName = addToCart.necklace_id + " " + addToCart.brand + " " + addToCart.material + " " + addToCart.type + " " + " Necklace";
+            var cartName = addToCart.necklace_id + " " + addToCart.brand + " " + addToCart.material + " " + addToCart.type + " " + " Necklace - Quantity";
+
+            if(elementExists==null){
+                cartOrderData[cartName] = 1;
+                console.log("hi " + Object.entries(addToCart));
+                basket.insertAdjacentHTML('afterend',
+                    "<div id=\"" + addToCart.necklace_id
+                    + "\"><img style=\"height: 30px; width: 30px; border:none; margin-top: 12px;\" src=\"" + addToCart.imgPath + "\"></img>&nbsp"
+                    + "<p id=\"" + addToCart.brand + " " + addToCart.material + " " + addToCart.type + " Necklace" 
+                    + "\"style=\"margin-bottom:0px; margin-top: -5px; font-size: smaller; display: inline;\">" 
+                    + addToCart.brand + " " + addToCart.material + " " + addToCart.type + " Necklace" + "</p><br>"
+                    + "<div " + "style=\"position: relative; margin-left: 35px; margin-top: -45px; margin-bottom: 10px;\"" + ">"
+                    + "<br>"
+                    + "<br>"
+                    + "<p style=\"display: inline; font-size: smaller; margin-top: -10px;\" id=\""+ addToCart.necklace_id + "_price" + "\">$" + addToCart.price + " each</p>"
+                    + "&nbsp" + "&nbsp" + "&nbsp" + "&nbsp" + "&nbsp" + "&nbsp" + "&nbsp" + "&nbsp" + "&nbsp" 
+                    + "<p style=\"display: inline; font-size: smaller; margin-top: -160px;\">     x</p><p id=\""+ addToCart.necklace_id + "_quantity" +"\" style=\" margin-top: -10px; font-size: smaller; display: inline;\">1</p><p style=\"display: inline;\"></p>"
+                    + "&nbsp" + "&nbsp" 
+                    + "<button style=\"border:none; background: none; display: inline;\" onclick=\"changeQuantity(" + addToCart.necklace_id + ", " + "\'" + cartName + "\'" + ", \'decrement\')\">" + "-" + "</button>"
+                    + "<button style=\"border:none; background: none; display: inline;\" onclick=\"changeQuantity(" + addToCart.necklace_id + ", " + "\'" + cartName + "\'" + ", \'increment\')\">" + "+" + "</button>"
+                    + "</div>"
+                    + "<hr style=\"margin: 0.1em auto; margin-top:-5px; margin-bottom:5px; font-size: smaller;\">"
+                    + "</div>"
+                );
+            } else {
+                cartOrderData[cartName] += 1;
+                let quantity = Number(document.getElementById(addToCart.necklace_id + "_quantity").textContent)
+                document.getElementById(addToCart.necklace_id + "_quantity").textContent = quantity+1;
+            }
+
+            /* 
+                1. Read what is in the shopping cart
+                2. Store it
+                3. Calculate the subtotal
+                4. Display it
+            */
+            
+            var ids = Array.from(document.getElementById('shoppingCartItems').children).map(element => {
+                return element.id;
+            });
+            var quantities = [];
+            var prices = [];
+            for (i=1;i<ids.length;i++){
+                quantities.push(document.getElementById(ids[i]+"_quantity").textContent)
+                var str=document.getElementById(ids[i]+"_price").textContent
+                prices.push(str.substring(1).substring(0, str.length - 6))
+            }
+            console.log(ids.slice(1))
+            console.log(quantities)
+            console.log(prices)
+            var subtotalArr = quantities.map(function (num, idx) {
+                return num * prices[idx];
+            });
+            var subtotal = subtotalArr.reduce((partialSum, a) => partialSum + a, 0);
+            let tax = Number(document.getElementById("tax").textContent);
+            let shippingCost = Number(document.getElementById("shippingCost").textContent);
+            document.getElementById("subtotal").textContent = subtotal.toFixed(2);
+            document.getElementById("total").textContent = ((subtotal+shippingCost)+(subtotal+shippingCost)*(tax/100)).toFixed(2);
+            console.log("cartData is " + cartOrderData);
+            for (const[key, value] of Object.entries(cartOrderData)) {
+                console.log(key + " " + value);
+            }
+        }
+    </script>
+    <section id="necklaceSection" style="margin-left: 7%; margin-right: 4%;">
+        <!-- TABLE CONSTRUCTION-->
+        <table id='table'>
+            <script>
+
+                async function addNecklaces(data) {
+
+                    if (document.getElementById("necklacelist")) {
+                        document.getElementById("necklacelist").remove();
+                    }
+
+                    if (data == null)
+                        data = await getNecklaceData();
+                        
+                    console.log("DATA IS " + data);
+                    var necklace = '<div id=\"necklacelist\" style=\"'+data.length*1000+'px; overflow: hidden;\">'; // does nothing
+                    necklace = '<div id=\"necklacelist\" class=\"row\"style=\"width:100%;\">';
+                        // ITERATING THROUGH OBJECTS
+                    $.each(data, function (key, value) {
+                        // CONSTRUCTION OF ROWS HAVING
+                        // DATA FROM JSON OBJECT
+                        console.log("DATA IS " + data + " KEY IS " + value.necklace_id + "VALUE IS " + value);
+                        necklace+= '<div id=\"necklace_'+value.necklace_id+'\" ';
+                        necklace+= 'data-price=\"'+value.price+'\"';
+                        necklace+= 'class=\"col-lg-4 col-md-6 mb-2 class-necklace ';
+                        
+                        if(value.type=='Pendant'){
+                            necklace+='type_Pendant';
+                        }else if(value.type=='Pearl Strand'){
+                            necklace+= 'type_Pearl_Strand';
+                        }else if(value.type=='Station'){
+                            necklace+= 'type_Station';
+                        }else if(value.type=='Collar'){
+                            necklace+= 'type_Collar';
+                        }else if(value.type=='Locket'){
+                            necklace+= 'type_Locket';
+                        }else if(value.type=='Lariat'){
+                            necklace+= 'type_Lariat';
+                        }else if(value.type=='Chain'){
+                            necklace+= 'type_Chain';
+                        }else if(value.type=='Tennis'){
+                            necklace+= 'type_Tennis';
+                        }else if(value.type=='Multi-Strand'){
+                            necklace+= 'type_Multi_Strand';
+                        }else if(value.type=='Charm'){
+                            necklace+= 'type_Charm';
+                        }else if(value.type=='Bib'){
+                            necklace+= 'type_Bib';
+                        }else if(value.type=='Paperclip'){
+                            necklace+= 'type_Paperclip';
+                        };
+
+                        necklace+=' ';
+                        
+                        if(value.material=='Gold'){
+                            necklace+= 'material_Gold';
+                        }else if(value.material=='Sterling Silver'){
+                            necklace+= 'material_Sterling_Silver';
+                        }else if(value.material=='Rose Gold'){
+                            necklace+= 'material_Rose_Gold';
+                        }else if(value.material=='White Gold'){
+                            necklace+= 'material_White_Gold';
+                        }else if(value.material=='Titanium'){
+                            necklace+= 'material_Titanium';
+                        }else if(value.material=='Crystal Lacquer'){
+                            necklace+= 'material_Crystal_Lacquer';
+                        }else if(value.material=='Silk'){
+                            necklace+= 'material_Silk';
+                        };
+
+                        necklace+=' ';
+                        
+                        if(value.gem=='Amethyst'){
+                            necklace+= 'gem_Amethyst';
+                        }else if(value.gem=='Black Diamond'){
+                            necklace+= 'gem_Black_Diamond';
+                        }else if(value.gem=='Citrine'){
+                            necklace+= 'gem_Citrine';
+                        }else if(value.gem=='Diamond'){
+                            necklace+= 'gem_Diamond';
+                        }else if(value.gem=='Emerald'){
+                            necklace+= 'gem_Emerald';
+                        }else if(value.gem=='Garnet'){
+                            necklace+= 'gem_Garnet';
+                        }else if(value.gem=='Onyx'){
+                            necklace+= 'gem_Onyx';
+                        }else if(value.gem=='Peridot'){
+                            necklace+= 'gem_Peridot';
+                        }else if(value.gem=='Ruby'){
+                            necklace+= 'gem_Ruby';
+                        }else if(value.gem=='Sapphire'){
+                            necklace+= 'gem_Sapphire';
+                        }else if(value.gem=='Topaz'){
+                            necklace+= 'gem_Topaz';
+                        }else if(value.gem=='White Crystal'){
+                            necklace+= 'gem_White_Crystal';
+                        };
+
+                        necklace+= '\"><div class=\"rent-item mb-4\" style=\"width:100%;\"><div><tr>'
+                        
+                        necklace+="<img class=\"img-fluid mb-4 ";
+                        necklace+="\" src=\""+value.imgPath+"\" alt=\"\">"
+
+                        necklace+="<h4 class=\"text-uppercase mb-4\">" + value.brand + "<br>" + value.material + " " + value.type + "<br>Necklace</h4><br>";
+
+                        necklace+="<li> Quantity:"+ value.quantity +"</li><br>";
+                        
+                        necklace+="<a class=\"btn btn-primary px-3 necklace-btn\" onmouseover=\"bookThis(";
+                        necklace+= value.necklace_id;
+                        necklace+=")\" onclick=\"addToCart()\" target=\"_top\"> $"+ value.price +"</a>";
+
+                        necklace += '</tr></div></div></div>';
+                    });
+
+
+                    console.log("table exists? " + document.getElementById('table'));
+
+                    //INSERTING ROWS INTO TABLE 
+                    $('#table').append(necklace);
+
+                };
+
+                $(document).ready(function () {
+                    
+                    // FETCHING DATA FROM JSON FILE
+                    addNecklaces(null);
+
+                });
+            </script>
+    </section>
+    
+    <script>
+        window.onload = function loadFooter(){
+            necklaceSection.insertAdjacentHTML('afterend',
+                "<iframe src=\"footer.html\" width=\"100%\" height=\"490px\" scrolling=\"no\" frameborder=\"0\" style=\"overflow-y: hidden; margin-bottom:\"></iframe>"
+        );
+        }
+    </script>
+
+
+
+    <!-- Sending Orders -->
+
+    <script>
+
+        async function check_all(){
+            check_cc_firstName();
+            check_cc_lastName();
+            check_cc();
+            check_cvc();
+            check_date();
+            check_street();
+            check_city();
+            check_state();
+
+
+            if(check_cc_firstName()){
+                if(check_cc_lastName()){
+                    if(check_cc()){
+                        if(check_cvc()){
+                            if(check_date()){
+                                if(check_street()){
+                                    if(check_city()){
+                                        if(check_state()){
+                                            /* Post Order */
+                                            // Declare Vars
+                                            let ids = sessionStorage.ids;
+                                            let quantities = sessionStorage.quantities;
+                                            let prices = sessionStorage.prices;
+                                            let ccFirstName = document.getElementById("cc-firstName").value;
+                                            let ccLastName = document.getElementById("cc-lastName").value;
+                                            let cc = document.getElementById("cc").value;
+                                            let cvc = document.getElementById("cc-cvc").value;
+                                            let date = document.getElementById("cc-date").value;
+                                            let street = document.getElementById("street").value;
+                                            let city = document.getElementById("city").value;
+                                            let state = document.getElementById("state").value;
+                                            let total = document.getElementById("total").textContent;
+        
+                                            /* POST */
+                                            let success = await createShippingOrder(JSON.stringify(cartOrderData), ccFirstName, ccLastName, cc, cvc, date, street, city, state, total);
+        
+                                            if (success){
+                                                openCart();
+                                                alert("Order placed successfully!");
+                                            }
+                                            else {
+                                                alert("Missing Item: Please select a necklace to purchase.\n");
+                                            }
+                                            return;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        function packageFormData(data) {
+            return new Promise((resolve, reject) => {
+                formData = new FormData();
+                // Push our data into our FormData object
+                for (const [name, value] of Object.entries(data)) {
+                    formData.append(name, value);
+                    console.log(name + " " + value);
+                }
+        
+                if (formData) {
+                    resolve(formData);
+                }
+                else {
+                    reject("Something went wrong converting data into FormData object");
+                }
+            })
+        };
+        
+        function sendData(data, url, httpMethod) {
+            return new Promise((resolve, reject) => {
+                const XHR = new XMLHttpRequest();
+                var returnData;
+
+                console.log("HELLOOOOOOOOOOOOOOOO");
+                for (var pair of Object.entries(data)) {
+                    console.log("key is " + pair[0] + " and val is " + pair[1]);
+                }
+        
+                // set the proper 'GET' HTTP URL
+                XHR.open(httpMethod, url, true);
+                //console.log("inside sendData function");
+                //console.log("url inside sendData() is " + url);
+        
+                // Define what happens on successful data submission
+                XHR.addEventListener('load', (event) => {
+                    console.log('Yeah! Data sent and response loaded.');
+                });
+        
+                // Define what happens in case of error
+                XHR.addEventListener('error', (event) => {
+                    alert('Oops! Something went wrong.');
+                });
+        
+                XHR.onreadystatechange = function () {
+                    if (XHR.readyState === 4) {
+                        if (XHR.status == 400) {
+                            resolve(null);
+                        }
+                        if (XHR.status == 200 || XHR.status == 201) {
+                            returnData = XHR.responseText;
+                            try {returnData = (JSON.parse(XHR.responseText))}
+                            catch {
+                                console.log("raw Data cannot undergo \"JSON.parse\"")
+                            }
+                            console.log(XHR.status);
+                            console.log(XHR.responseText);
+                            console.log("RETURN DATA IS " + returnData);
+                            resolve(returnData);
+                        }
+                        if (XHR.status == 202) {
+                            alert("Nothing was found with that search parameter");
+                        }
+                    }
+                };
+        
+                XHR.send(data);
+        })};
+        
+        async function createShippingOrder(orderList, ccFirstName, ccLastName, sentCC, sentCVC, sentCCDate, sentStreet, sentCity, sentState, sentTotal) {
+            var shippingData, orderPostResult, url;
+            url = "/v1/orders.php";
+            shippingData = await packageFormData({orders      : orderList,
+                                                ccfirstname : ccFirstName,
+                                                cclastname  : ccLastName,
+                                                cc          : sentCC,
+                                                cvc         : sentCVC,
+                                                ccDate      : sentCCDate,
+                                                city        : sentCity,
+                                                state       : sentState,
+                                                street      : sentStreet,
+                                                total       : sentTotal});
+
+            orderPostResult = await sendData(shippingData, url, "POST");
+
+            return orderPostResult;
+        }
+        
+        function check_cc_firstName(){
+            if (document.getElementById("cc-firstName").value.length>2){
+                document.getElementById("cc-firstName").style.borderColor="#5EFF33"; //green
+                return true;
+            } else {
+                document.getElementById("cc-firstName").style.borderColor="#FF3333"; //red
+            }
+        }
+        function check_cc_lastName(){
+            if (document.getElementById("cc-lastName").value.length>2){
+                document.getElementById("cc-lastName").style.borderColor="#5EFF33"; //green
+                return true;
+            } else {
+                document.getElementById("cc-lastName").style.borderColor="#FF3333"; //red
+            }
+        }
+        function check_cc(){
+            if (document.getElementById("cc").value.length==16){
+                document.getElementById("cc").style.borderColor="#5EFF33"; //green
+                return true;
+            } else {
+                document.getElementById("cc").style.borderColor="#FF3333"; //red
+            }
+        }
+        function check_cvc(){
+            if (document.getElementById("cc-cvc").value.length==3){
+                document.getElementById("cc-cvc").style.borderColor="#5EFF33"; //green
+                return true;
+            } else {
+                document.getElementById("cc-cvc").style.borderColor="#FF3333"; //red
+            }
+        }
+        function check_date(){
+            if (document.getElementById("cc-date").value.length==7){
+                document.getElementById("cc-date").style.borderColor="#5EFF33"; //green
+                return true;
+            } else {
+                document.getElementById("cc-date").style.borderColor="#FF3333"; //red
+            }
+        }
+        function check_street(){
+            if (document.getElementById("street").value.length>5){
+                document.getElementById("street").style.borderColor="#5EFF33"; //green
+                return true;
+            } else {
+                document.getElementById("street").style.borderColor="#FF3333"; //red
+            }
+        }
+        function check_city(){
+            if (document.getElementById("city").value.length>2){
+                document.getElementById("city").style.borderColor="#5EFF33"; //green
+                return true;
+            } else {
+                document.getElementById("city").style.borderColor="#FF3333"; //red
+            }
+        }
+        function check_state(){
+            if (document.getElementById("state").value.length==2){
+                document.getElementById("state").style.borderColor="#5EFF33"; //green
+                return true;
+            } else {
+                document.getElementById("state").style.borderColor="#FF3333"; //red
+            }
+        }
+
+        function attachUrlParameters(userData, url) {
+                return new Promise((resolve, reject) => {
+                    console.log("HEY");
+                    for (const [key, value] of userData) {
+                        url += key + "=" + value + "&";
+                    }
+                    if (url) {
+                        resolve(url);
+                    }
+                    else {
+                        reject("something wrong occurred with the url");
+                    }
+                })
+        };
+
+        function deleteChildren(element) {
+            return new Promise((resolve, reject) => {
+                if (!element)
+                    reject("element does not exist");
+                
+                while (element.firstChild) {
+                    element.removeChild(element.firstChild);
+                }
+
+                resolve("success");
+            });
+        }
+
+        var mainBtnSearch = document.getElementById("mainSearch");
+
+        mainBtnSearch.addEventListener('click', async function (event) {
+            event.preventDefault();
+            var ddNecklaceType, ddMaterial, ddGem, textSearch, necklaceGetData, necklaceGetResult, url, necklaceTable, necklaceL, tableT;
+
+
+            necklaceL = document.getElementById("necklacelist");
+
+            await deleteChildren(necklaceL);
+
+            /*
+            while (necklaceL.firstChild) {
+                necklaceL.removeChild(necklaceL.firstChild);
+            }
+            */
+            //necklaceTable = document.getElementById("table");
+            //$('#table').detach();
+
+            //tableT = document.createElement("table");
+            //tableT = tableT.setAttribute('id', 'table');
+
+
+            
+            url = "/v1/necklaces.php?";
+            ddNecklaceType = document.getElementById("DropDownNecklaceType").value;
+            ddMaterial = document.getElementById("DropDownMaterial").value;
+            ddGem = document.getElementById("DropDownGem").value;
+            textSearch = document.getElementById("textSearch").value;
+
+            if (textSearch == "" || textSearch == null) {
+                textSearch == ddGem;
+                /*
+                necklaceGetData = await packageFormData({type       : ddNecklaceType,
+                                                         material   : ddMaterial,
+                                                         gem        : ddGem});
+                                                         */
+            }
+            else {
+                if (ddNecklaceType == "Necklace Type" || ddNecklaceType == null)
+                    ddNecklaceType = textSearch;
+                if (ddMaterial == "Material" || ddMaterial == null)
+                    ddMaterial = textSearch;
+                if (ddGem == "Gem" || ddGem == null)
+                    ddGem = textSearch;
+
+                    /*
+                necklaceGetData = await packageFormData({type       : ddNecklaceType,
+                                                      material   : ddMaterial,
+                                                      gem        : ddGem,
+                                                      brand      : textSearch});
+                                                      */
+            }
+
+            if (ddNecklaceType == "Necklace Type" && ddMaterial == "Material" && ddGem == "Gem" && textSearch == "") {
+                necklaceGetData = await packageFormData({"" : ""});
+            }
+            else {
+                necklaceGetData = await packageFormData({type       : ddNecklaceType,
+                                                    material   : ddMaterial,
+                                                    gem        : ddGem,
+                                                    brand      : textSearch});
+            }
+
+            console.log("necklaceGetData " + Object.entries(necklaceGetData));
+
+            console.log("old url is " + url);
+
+            url = await attachUrlParameters(necklaceGetData, url);
+            
+            console.log("new url is " + url);
+
+            necklaceGetResult = await sendData(necklaceGetData, url, "GET");
+                
+            if (necklaceGetResult != null) {
+                necklaceGetResult = necklaceGetResult['response'];
+                addNecklaces(necklaceGetResult);
+            }
+        });
+
+        
+    
+    </script>
+
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+    <script src="lib/easing/easing.min.js"></script>
+    <script src="lib/waypoints/waypoints.min.js"></script>
+    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+    <script src="lib/tempusdominus/js/moment.min.js"></script>
+    <script src="lib/tempusdominus/js/moment-timezone.min.js"></script>
+    <script src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
+
+    <script src="js/index.js"></script>
+
+</body>
+
+</html>

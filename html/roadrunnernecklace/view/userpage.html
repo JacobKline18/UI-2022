@@ -35,32 +35,126 @@
                     <nav id="menu">
                         <h2>Menu</h2>
                         <ul>
-                            <li><a href="index.html">Home</a></li>
+                            <li><a href="landingpage.html">Home</a></li>
                             <li><a href="userpage.html">Create Account</a></li>
-                            <li><a href="generic.html">Tempus etiam</a></li>
-                            <li><a href="generic.html">Consequat dolor</a></li>
-                            <li><a href="elements.html">Elements</a></li>
+                            <li><a href="generic.html">generic</a></li>
+                            <li><a href="generic.html">generic</a></li>
+                            <li><a href="adminpage.html">Admin Page</a></li>
                         </ul>
                     </nav>
                     <div id="main">
                         <div class="inner">
                             <h1>Create Account</h1>
-                            <form action="v1/createUser.php" method="post" id="create_user_form">
+                            <form action="" method="post" id="create_user_form">
                                 <label for="fname">First Name:</label><br>
-                                <input type="text" id="fname" name="fname" required><br>
+                                <input type="text" id="fname" name="fname" placeholder="First Name" required><br>
                                 <label for="lname">Last Name:</label><br>
-                                <input type="text" id="lname" name="lname" required><br>
+                                <input type="text" id="lname" name="lname" placeholder="Last Name" required><br>
                                 <label for="email">Email:</label><br>
-                                <input type="text" id="email" name="email" required><br>
+                                <input type="text" id="email" name="email" placeholder="Email" required><br>
                                 <label for="password">Password:</label><br>
-                                <input type="text" id="password" name="password" required>
-                                <button type="submit" id="btnsubmit">Create!</button>
+                                <input type="password" id="password" name="password" placeholder="Password" required>
+                                <button type="submit" id="btnCreateAcc">Create!</button>
                             </form>
                         </div>
                     </div>
             </div>
 
         <!-- Scripts -->
+            <script>
+                /*
+                $("#create_user_form").submit(function( event ){
+                    alert("hi")
+					event.preventDefault();
+					var $form = $ ( this ),
+					firstName = $form.find( "input[name='fname']" ).val(),
+					lastName = $form.find( "input[name='lname']" ).val(),
+					email = $form.find( "input[name='email']" ).val(),
+					password = $form.find( "input[name='password']" ).val(),
+					url = $form.attr( "action")
+                    alert(firstName)
+	
+					var posting = $.post(url, {
+						firstName : firstName,
+						lastName : lastName,
+						email : email,
+						password : password
+					});
+					posting.done(function( data ) {
+						
+						// on the server, we use send to send some JSON data into this function
+						// the key is "message" and the value is whatever we wrote on the server-side
+						// which is a message notifying the user whether they were successfully added
+						// to the database or not
+						alert(data.message)
+					});
+				});
+                */
+                const btn = document.getElementById('btnCreateAcc');
+                const form = document.getElementById('create_user_form')
+                const fname = document.getElementById('fname')
+                const lname = document.getElementById('lname')
+                const email = document.getElementById('email')
+                const password = document.getElementById('password')
+
+                btn.addEventListener('click', function(event) {
+                    //event.preventDefault();
+                    sendData({  firstName : fname.value,
+                                lastName : lname.value,
+                                email : email.value,
+                                password : password.value });
+                });
+
+                function sendData(data) {
+                    const FD = new FormData();
+                    const XHR = new XMLHttpRequest();
+                    XHR.open('POST', 'http://roadrunnernecklaces.com/v1/users.php', true);
+                    //XHR.setRequestHeader("Accept", "application/json");
+                    //XHR.setRequestHeader("Content-Type", "application/json");
+                    
+                    // Push our data into our FormData object
+                    for (const [name, value] of Object.entries(data)) {
+                        //alert(name)
+                        //alert(value)
+                        FD.append(name, value);
+                    }
+                    // Display the values
+                    /*
+                    alert(FD)
+                    for (const value of FD.values()) {
+                        alert(value);
+                    }
+                    */
+                    // Define what happens on successful data submission
+                    XHR.addEventListener('load', (event) => {
+                        alert('Yeah! Data sent and response loaded.');
+                    });
+
+                    // Define what happens in case of error
+                    XHR.addEventListener('error', (event) => {
+                        alert('Oops! Something went wrong.');
+                    });
+
+                    XHR.onreadystatechange = function () {
+                        if (XHR.readyState === 4) {
+                            if (XHR.status == 201) {
+                                alert("Account Successfully Created!");
+                            }
+                            if (XHR.status == 400) {
+                                alert("special if case 400");
+                            }
+                            alert(XHR.status);
+                            alert(XHR.responseText);
+                            console.log(XHR.status);
+                            console.log(XHR.responseText);
+                        }};
+
+                    XHR.send(FD);
+                }
+                
+
+            </script>
+
 			<script src="assets/js/jquery.min.js"></script>
 			<script src="assets/js/browser.min.js"></script>
 			<script src="assets/js/breakpoints.min.js"></script>

@@ -18,7 +18,7 @@ function send_http_response($response_code, $response_message){
     http_response_code($response_code);
     die(json_encode(array(
         "status" => $response_code,
-        "response" => $response_message)));
+        "response" => $response_message), JSON_FORCE_OBJECT));
 }
 
 function create_user_session($mysqli, $user_id){
